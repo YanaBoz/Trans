@@ -1,0 +1,344 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "V:\\BSUIR\\Transport\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\grapheditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\grapheditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\parametersform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\parametersform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\simulationcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\simulationcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\comparisonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\comparisonform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED81C3AF-DE11-4F8A-850B-708F6B8201C3}|..\\TrafficSimulation.Coree\\TrafficSimulation.Coree.csproj|v:\\bsuir\\trafficsimulation.coree\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{917B063C-BC69-4810-8CD5-7849F1F7C4FF}|..\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj|v:\\bsuir\\trafficsimulation.infrastruct\\trafficsimulation.infrastruct.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{917B063C-BC69-4810-8CD5-7849F1F7C4FF}|..\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj|v:\\bsuir\\trafficsimulation.infrastruct\\data\\jsonparametersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\incidentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\incidentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\statisticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\statisticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\simulationcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\simulationcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\incidentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\incidentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\parametersform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\parametersform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\trafficsimulation.ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:trafficsimulation.ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\grapheditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\grapheditorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|v:\\bsuir\\transport\\forms\\simulationcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BED5911A-A077-4FE0-AB61-81708CBF084C}|TrafficSimulation.UI.csproj|solutionrelative:forms\\simulationcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SimulationControl.Designer.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.Designer.cs",
+              "RelativeDocumentMoniker": "Forms\\SimulationControl.Designer.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.Designer.cs*",
+              "RelativeToolTip": "Forms\\SimulationControl.Designer.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T14:28:50.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ParametersForm.Designer.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\ParametersForm.Designer.cs",
+              "RelativeDocumentMoniker": "Forms\\ParametersForm.Designer.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\ParametersForm.Designer.cs*",
+              "RelativeToolTip": "Forms\\ParametersForm.Designer.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T14:28:49.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "V:\\BSUIR\\TrafficSimulation.Coree\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\TrafficSimulation.Coree\\Class1.cs",
+              "ToolTip": "V:\\BSUIR\\TrafficSimulation.Coree\\Class1.cs",
+              "RelativeToolTip": "..\\TrafficSimulation.Coree\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T14:27:54.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TrafficSimulation.Infrastruct",
+              "DocumentMoniker": "V:\\BSUIR\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj",
+              "RelativeDocumentMoniker": "..\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj",
+              "ToolTip": "V:\\BSUIR\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj",
+              "RelativeToolTip": "..\\TrafficSimulation.Infrastruct\\TrafficSimulation.Infrastruct.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-06T14:27:09.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "JsonParametersRepository.cs",
+              "DocumentMoniker": "V:\\BSUIR\\TrafficSimulation.Infrastruct\\Data\\JsonParametersRepository.cs",
+              "RelativeDocumentMoniker": "..\\TrafficSimulation.Infrastruct\\Data\\JsonParametersRepository.cs",
+              "ToolTip": "V:\\BSUIR\\TrafficSimulation.Infrastruct\\Data\\JsonParametersRepository.cs",
+              "RelativeToolTip": "..\\TrafficSimulation.Infrastruct\\Data\\JsonParametersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T14:22:36.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "Forms\\MainForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\MainForm.cs",
+              "RelativeToolTip": "Forms\\MainForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFECAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:24:20.29Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GraphEditorForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\GraphEditorForm.cs",
+              "RelativeDocumentMoniker": "Forms\\GraphEditorForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\GraphEditorForm.cs",
+              "RelativeToolTip": "Forms\\GraphEditorForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:44:11.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:24:58.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SimulationControl.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.cs",
+              "RelativeDocumentMoniker": "Forms\\SimulationControl.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.cs",
+              "RelativeToolTip": "Forms\\SimulationControl.cs",
+              "ViewState": "AgIAAFsBAAAAAAAAAAAhwHYBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:35:36.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ComparisonForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\ComparisonForm.cs",
+              "RelativeDocumentMoniker": "Forms\\ComparisonForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\ComparisonForm.cs",
+              "RelativeToolTip": "Forms\\ComparisonForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:04:22.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IncidentForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\IncidentForm.cs",
+              "RelativeDocumentMoniker": "Forms\\IncidentForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\IncidentForm.cs",
+              "RelativeToolTip": "Forms\\IncidentForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:33:24.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StatisticsForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\StatisticsForm.cs",
+              "RelativeDocumentMoniker": "Forms\\StatisticsForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\StatisticsForm.cs",
+              "RelativeToolTip": "Forms\\StatisticsForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOcBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:30:22.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ParametersForm.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\ParametersForm.cs",
+              "RelativeDocumentMoniker": "Forms\\ParametersForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\ParametersForm.cs",
+              "RelativeToolTip": "Forms\\ParametersForm.cs",
+              "ViewState": "AgIAANQBAAAAAAAAAAAcwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:29:35.923Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "DependencyInjection.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\DependencyInjection.cs",
+              "RelativeToolTip": "DependencyInjection.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB8AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:17:02.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IncidentForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\IncidentForm.cs",
+              "RelativeDocumentMoniker": "Forms\\IncidentForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\IncidentForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Forms\\IncidentForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:33:18.843Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TrafficSimulation.UI",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\TrafficSimulation.UI.csproj",
+              "RelativeDocumentMoniker": "TrafficSimulation.UI.csproj",
+              "ToolTip": "V:\\BSUIR\\Transport\\TrafficSimulation.UI.csproj*",
+              "RelativeToolTip": "TrafficSimulation.UI.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-06T13:49:55.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "Forms\\MainForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Forms\\MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:44:24.85Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GraphEditorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\GraphEditorForm.cs",
+              "RelativeDocumentMoniker": "Forms\\GraphEditorForm.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\GraphEditorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Forms\\GraphEditorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:44:07.394Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SimulationControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.cs",
+              "RelativeDocumentMoniker": "Forms\\SimulationControl.cs",
+              "ToolTip": "V:\\BSUIR\\Transport\\Forms\\SimulationControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Forms\\SimulationControl.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T13:33:45.99Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:210250908:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

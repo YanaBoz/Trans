@@ -1,0 +1,11 @@
+V:\BSUIR\TrafficSimulation.Coree\bin\Debug\net8.0\TrafficSimulation.Coree.deps.json
+V:\BSUIR\TrafficSimulation.Coree\bin\Debug\net8.0\TrafficSimulation.Coree.dll
+V:\BSUIR\TrafficSimulation.Coree\bin\Debug\net8.0\TrafficSimulation.Coree.pdb
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.GeneratedMSBuildEditorConfig.editorconfig
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.AssemblyInfoInputs.cache
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.AssemblyInfo.cs
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.csproj.CoreCompileInputs.cache
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.dll
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\refint\TrafficSimulation.Coree.dll
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\TrafficSimulation.Coree.pdb
+V:\BSUIR\TrafficSimulation.Coree\obj\Debug\net8.0\ref\TrafficSimulation.Coree.dll
