@@ -54,7 +54,20 @@ namespace TrafficSimulation.Core.Services
             string name,
             IEnumerable<Guid> networkIds,
             IEnumerable<Tuple<Guid, Guid>> connections);
-    }
+        Task<IEnumerable<RoadNetwork>> GetAllNetworksAsync();
+        Task<bool> DeleteNetworkAsync(Guid networkId);
 
+        // Обновленный метод AddEdge с дополнительными параметрами
+        Task<RoadSegment> AddEdgeAsync(
+            Guid networkId,
+            Guid startVertexId,
+            Guid endVertexId,
+            RoadType type = RoadType.Urban,
+            double length = 0,
+            int lanes = 1,
+            double maxSpeed = 50,
+            bool hasCrosswalk = false, // Добавить этот параметр
+            bool isBidirectional = true); // Добавить этот параметр
+    }
     public enum LayoutAlgorithm { FruchtermanReingold, Circular, Grid, Random }
 }

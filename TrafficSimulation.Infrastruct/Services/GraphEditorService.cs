@@ -16,18 +16,20 @@ namespace TrafficSimulation.Infrastructure.Services
 
         public GraphEditorService(IRoadNetworkRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _random = new Random();
         }
 
         public async Task<RoadNetwork> CreateNetworkAsync(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Network name cannot be empty", nameof(name));
+                throw new ArgumentException("Имя сети не может быть пустым", nameof(name));
 
             var network = new RoadNetwork(name)
             {
-                Description = $"Network created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}"
+                Description = $"Сеть создана {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
             };
 
             await _repository.SaveAsync(network);
@@ -38,7 +40,7 @@ namespace TrafficSimulation.Infrastructure.Services
         {
             var network = await _repository.GetByIdAsync(networkId);
             if (network == null)
-                throw new KeyNotFoundException($"Network with id {networkId} not found");
+                throw new KeyNotFoundException($"Сеть с ID {networkId} не найдена");
 
             return network;
         }
@@ -50,12 +52,13 @@ namespace TrafficSimulation.Infrastructure.Services
 
             try
             {
+                network.UpdateModifiedDate();
                 await _repository.SaveAsync(network);
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving network: {ex.Message}");
+                Console.WriteLine($"Ошибка сохранения сети: {ex.Message}");
                 return false;
             }
         }
@@ -103,7 +106,9 @@ namespace TrafficSimulation.Infrastructure.Services
             RoadType type = RoadType.Urban,
             double length = 0,
             int lanes = 1,
-            double maxSpeed = 50)
+            double maxSpeed = 50,
+            bool hasCrosswalk = false,
+            bool isBidirectional = true)
         {
             var network = await LoadNetworkAsync(networkId);
 
@@ -111,36 +116,39 @@ namespace TrafficSimulation.Infrastructure.Services
             var endVertex = network.Vertices.FirstOrDefault(v => v.Id == endVertexId);
 
             if (startVertex == null)
-                throw new ArgumentException($"Start vertex {startVertexId} not found", nameof(startVertexId));
+                throw new ArgumentException($"Начальная вершина {startVertexId} не найдена", nameof(startVertexId));
+
             if (endVertex == null)
-                throw new ArgumentException($"End vertex {endVertexId} not found", nameof(endVertexId));
+                throw new ArgumentException($"Конечная вершина {endVertexId} не найдена", nameof(endVertexId));
 
             if (startVertex.Id == endVertex.Id)
-                throw new ArgumentException("Cannot create edge from a vertex to itself");
+                throw new ArgumentException("Нельзя создать ребро из вершины в саму себя");
 
-            // Проверяем, не существует ли уже такое ребро
+            // Проверяем существование ребра
             var existingEdge = network.Edges.FirstOrDefault(e =>
                 e.StartVertexId == startVertexId && e.EndVertexId == endVertexId);
-            if (existingEdge != null)
-                throw new InvalidOperationException($"Edge from {startVertexId} to {endVertexId} already exists");
 
-            // Если длина не указана, вычисляем расстояние между вершинами
+            if (existingEdge != null)
+                throw new InvalidOperationException($"Ребро из {startVertexId} в {endVertexId} уже существует");
+
+            // Вычисляем длину, если не указана
             if (length <= 0)
             {
                 length = CalculateDistance(startVertex, endVertex);
             }
 
+            // Создаем основное ребро
             var edge = new RoadSegment
             {
                 Id = Guid.NewGuid(),
                 Name = $"E{startVertex.Name}-{endVertex.Name}",
                 StartVertexId = startVertexId,
                 EndVertexId = endVertexId,
-                Length = length,
+                Length = Math.Max(1, length),
                 Lanes = Math.Max(1, lanes),
-                MaxSpeed = Math.Max(10, Math.Min(120, maxSpeed)), // Ограничиваем скорость 10-120 км/ч
+                MaxSpeed = Math.Max(10, Math.Min(120, maxSpeed)),
                 Type = type,
-                HasCrosswalk = type == RoadType.Urban && _random.NextDouble() < 0.4,
+                HasCrosswalk = type == RoadType.Urban && hasCrosswalk,
                 CityId = startVertex.CityId == endVertex.CityId ? startVertex.CityId : 0,
                 IsBlocked = false,
                 BlockedUntil = DateTime.MinValue,
@@ -148,7 +156,7 @@ namespace TrafficSimulation.Infrastructure.Services
                 CongestionLevel = 0,
                 Density = 0,
                 FlowRate = 0,
-                IsBidirectional = false,
+                IsBidirectional = isBidirectional,
                 Vehicles = new List<Vehicle>()
             };
 
@@ -158,8 +166,37 @@ namespace TrafficSimulation.Infrastructure.Services
             startVertex.OutgoingEdges.Add(edge.Id);
             endVertex.IncomingEdges.Add(edge.Id);
 
-            await SaveNetworkAsync(network);
+            // Если ребро двустороннее, создаем обратное направление
+            if (isBidirectional)
+            {
+                var reverseEdge = new RoadSegment
+                {
+                    Id = Guid.NewGuid(),
+                    Name = $"E{endVertex.Name}-{startVertex.Name}",
+                    StartVertexId = endVertexId,
+                    EndVertexId = startVertexId,
+                    Length = Math.Max(1, length),
+                    Lanes = Math.Max(1, lanes),
+                    MaxSpeed = Math.Max(10, Math.Min(120, maxSpeed)),
+                    Type = type,
+                    HasCrosswalk = type == RoadType.Urban && hasCrosswalk,
+                    CityId = startVertex.CityId == endVertex.CityId ? startVertex.CityId : 0,
+                    IsBlocked = false,
+                    BlockedUntil = DateTime.MinValue,
+                    AccidentCount = 0,
+                    CongestionLevel = 0,
+                    Density = 0,
+                    FlowRate = 0,
+                    IsBidirectional = true,
+                    Vehicles = new List<Vehicle>()
+                };
 
+                network.Edges.Add(reverseEdge);
+                endVertex.OutgoingEdges.Add(reverseEdge.Id);
+                startVertex.IncomingEdges.Add(reverseEdge.Id);
+            }
+
+            await SaveNetworkAsync(network);
             return edge;
         }
 
@@ -203,6 +240,7 @@ namespace TrafficSimulation.Infrastructure.Services
 
             if (startVertex != null)
                 startVertex.OutgoingEdges.Remove(edgeId);
+
             if (endVertex != null)
                 endVertex.IncomingEdges.Remove(edgeId);
 
@@ -215,6 +253,9 @@ namespace TrafficSimulation.Infrastructure.Services
 
         public async Task<bool> UpdateVertexAsync(Guid networkId, Vertex vertex)
         {
+            if (vertex == null)
+                throw new ArgumentNullException(nameof(vertex));
+
             var network = await LoadNetworkAsync(networkId);
 
             var existingVertex = network.Vertices.FirstOrDefault(v => v.Id == vertex.Id);
@@ -236,6 +277,9 @@ namespace TrafficSimulation.Infrastructure.Services
 
         public async Task<bool> UpdateEdgeAsync(Guid networkId, RoadSegment edge)
         {
+            if (edge == null)
+                throw new ArgumentNullException(nameof(edge));
+
             var network = await LoadNetworkAsync(networkId);
 
             var existingEdge = network.Edges.FirstOrDefault(e => e.Id == edge.Id);
@@ -250,6 +294,7 @@ namespace TrafficSimulation.Infrastructure.Services
             existingEdge.Type = edge.Type;
             existingEdge.HasCrosswalk = edge.HasCrosswalk;
             existingEdge.CityId = edge.CityId;
+            existingEdge.IsBidirectional = edge.IsBidirectional;
 
             await SaveNetworkAsync(network);
             return true;
@@ -365,7 +410,7 @@ namespace TrafficSimulation.Infrastructure.Services
             {
                 if (!vertex.IncomingEdges.Any() && !vertex.OutgoingEdges.Any())
                 {
-                    issues.Add($"Vertex {vertex.Name} ({vertex.Id}) is isolated (no incoming or outgoing edges)");
+                    issues.Add($"Вершина {vertex.Name} ({vertex.Id}) изолирована (нет входящих или исходящих ребер)");
                 }
             }
 
@@ -376,13 +421,13 @@ namespace TrafficSimulation.Infrastructure.Services
 
             foreach (var group in edgeGroups)
             {
-                issues.Add($"Multiple edges from {group.Key.StartVertexId} to {group.Key.EndVertexId}");
+                issues.Add($"Несколько ребер из {group.Key.StartVertexId} в {group.Key.EndVertexId}");
             }
 
             // Проверка очень коротких ребер
             foreach (var edge in network.Edges.Where(e => e.Length < 10))
             {
-                issues.Add($"Edge {edge.Name} is very short ({edge.Length:F1}m)");
+                issues.Add($"Ребро {edge.Name} слишком короткое ({edge.Length:F1} м)");
             }
 
             // Проверка некорректных скоростей
@@ -390,7 +435,20 @@ namespace TrafficSimulation.Infrastructure.Services
             {
                 if (edge.MaxSpeed < 10 || edge.MaxSpeed > 120)
                 {
-                    issues.Add($"Edge {edge.Name} has invalid speed ({edge.MaxSpeed} km/h)");
+                    issues.Add($"Ребро {edge.Name} имеет недопустимую скорость ({edge.MaxSpeed} км/ч)");
+                }
+            }
+
+            // Проверка несогласованности двусторонних ребер
+            foreach (var edge in network.Edges.Where(e => e.IsBidirectional))
+            {
+                var reverseEdge = network.Edges.FirstOrDefault(e =>
+                    e.StartVertexId == edge.EndVertexId &&
+                    e.EndVertexId == edge.StartVertexId);
+
+                if (reverseEdge == null || !reverseEdge.IsBidirectional)
+                {
+                    issues.Add($"Двустороннее ребро {edge.Name} не имеет обратного направления");
                 }
             }
 
@@ -405,11 +463,11 @@ namespace TrafficSimulation.Infrastructure.Services
             int cityId = 1)
         {
             if (width < 1 || height < 1)
-                throw new ArgumentException("Width and height must be at least 1");
+                throw new ArgumentException("Ширина и высота должны быть не менее 1");
 
             var network = new RoadNetwork(name)
             {
-                Description = $"Grid network {width}x{height}, cell size: {cellSize}m"
+                Description = $"Сеточная сеть {width}x{height}, размер ячейки: {cellSize}м"
             };
 
             // Создаем вершины в сетке
@@ -427,7 +485,9 @@ namespace TrafficSimulation.Infrastructure.Services
                         Type = VertexType.Intersection,
                         HasTrafficLights = (row > 0 && col > 0) && _random.NextDouble() < 0.7,
                         CityId = cityId,
-                        TrafficLightPhase = 0
+                        TrafficLightPhase = 0,
+                        IncomingEdges = new List<Guid>(),
+                        OutgoingEdges = new List<Guid>()
                     };
 
                     vertices[row, col] = vertex;
@@ -443,11 +503,7 @@ namespace TrafficSimulation.Infrastructure.Services
                     var from = vertices[row, col];
                     var to = vertices[row, col + 1];
 
-                    var edge = CreateGridEdge(from, to, cellSize);
-                    network.Edges.Add(edge);
-
-                    from.OutgoingEdges.Add(edge.Id);
-                    to.IncomingEdges.Add(edge.Id);
+                    await AddGridEdgeAsync(network, from, to, cellSize);
                 }
             }
 
@@ -459,11 +515,7 @@ namespace TrafficSimulation.Infrastructure.Services
                     var from = vertices[row, col];
                     var to = vertices[row + 1, col];
 
-                    var edge = CreateGridEdge(from, to, cellSize);
-                    network.Edges.Add(edge);
-
-                    from.OutgoingEdges.Add(edge.Id);
-                    to.IncomingEdges.Add(edge.Id);
+                    await AddGridEdgeAsync(network, from, to, cellSize);
                 }
             }
 
@@ -471,14 +523,74 @@ namespace TrafficSimulation.Infrastructure.Services
             return network;
         }
 
+        private async Task AddGridEdgeAsync(RoadNetwork network, Vertex from, Vertex to, int cellSize)
+        {
+            var length = CalculateDistance(from, to);
+            var edge = new RoadSegment
+            {
+                Id = Guid.NewGuid(),
+                Name = $"E{from.Name}-{to.Name}",
+                StartVertexId = from.Id,
+                EndVertexId = to.Id,
+                Length = length,
+                Lanes = _random.Next(1, 4),
+                MaxSpeed = new[] { 40, 50, 60, 70 }[_random.Next(4)],
+                Type = RoadType.Urban,
+                HasCrosswalk = _random.NextDouble() < 0.3,
+                CityId = from.CityId,
+                IsBidirectional = true,
+                IsBlocked = false,
+                BlockedUntil = DateTime.MinValue,
+                AccidentCount = 0,
+                CongestionLevel = 0,
+                Density = 0,
+                FlowRate = 0,
+                Vehicles = new List<Vehicle>()
+            };
+
+            network.Edges.Add(edge);
+            from.OutgoingEdges.Add(edge.Id);
+            to.IncomingEdges.Add(edge.Id);
+
+            // Добавляем обратное направление для двусторонней дороги
+            var reverseEdge = new RoadSegment
+            {
+                Id = Guid.NewGuid(),
+                Name = $"E{to.Name}-{from.Name}",
+                StartVertexId = to.Id,
+                EndVertexId = from.Id,
+                Length = length,
+                Lanes = edge.Lanes,
+                MaxSpeed = edge.MaxSpeed,
+                Type = edge.Type,
+                HasCrosswalk = edge.HasCrosswalk,
+                CityId = edge.CityId,
+                IsBidirectional = true,
+                IsBlocked = false,
+                BlockedUntil = DateTime.MinValue,
+                AccidentCount = 0,
+                CongestionLevel = 0,
+                Density = 0,
+                FlowRate = 0,
+                Vehicles = new List<Vehicle>()
+            };
+
+            network.Edges.Add(reverseEdge);
+            to.OutgoingEdges.Add(reverseEdge.Id);
+            from.IncomingEdges.Add(reverseEdge.Id);
+        }
+
         public async Task<RoadNetwork> MergeNetworksAsync(
             string name,
             IEnumerable<Guid> networkIds,
             IEnumerable<Tuple<Guid, Guid>> connections)
         {
+            if (networkIds == null || !networkIds.Any())
+                throw new ArgumentException("Необходимо указать хотя бы одну сеть для объединения");
+
             var mergedNetwork = new RoadNetwork(name)
             {
-                Description = $"Merged network created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}"
+                Description = $"Объединенная сеть создана {DateTime.Now:yyyy-MM-dd HH:mm:ss}"
             };
 
             var vertexIdMap = new Dictionary<Guid, Guid>();
@@ -536,7 +648,14 @@ namespace TrafficSimulation.Infrastructure.Services
                         Type = edge.Type,
                         HasCrosswalk = edge.HasCrosswalk,
                         CityId = edge.CityId,
-                        IsBidirectional = edge.IsBidirectional
+                        IsBidirectional = edge.IsBidirectional,
+                        IsBlocked = edge.IsBlocked,
+                        BlockedUntil = edge.BlockedUntil,
+                        AccidentCount = edge.AccidentCount,
+                        CongestionLevel = edge.CongestionLevel,
+                        Density = edge.Density,
+                        FlowRate = edge.FlowRate,
+                        Vehicles = new List<Vehicle>()
                     };
 
                     mergedNetwork.Edges.Add(newEdge);
@@ -551,32 +670,42 @@ namespace TrafficSimulation.Infrastructure.Services
             }
 
             // Добавляем соединения между сетями
-            foreach (var connection in connections ?? Enumerable.Empty<Tuple<Guid, Guid>>())
+            if (connections != null)
             {
-                if (vertexIdMap.TryGetValue(connection.Item1, out var newStartId) &&
-                    vertexIdMap.TryGetValue(connection.Item2, out var newEndId))
+                foreach (var connection in connections)
                 {
-                    var startVertex = mergedNetwork.Vertices.First(v => v.Id == newStartId);
-                    var endVertex = mergedNetwork.Vertices.First(v => v.Id == newEndId);
-
-                    var edge = new RoadSegment
+                    if (vertexIdMap.TryGetValue(connection.Item1, out var newStartId) &&
+                        vertexIdMap.TryGetValue(connection.Item2, out var newEndId))
                     {
-                        Id = Guid.NewGuid(),
-                        Name = $"Connection_{startVertex.Name}_{endVertex.Name}",
-                        StartVertexId = newStartId,
-                        EndVertexId = newEndId,
-                        Length = CalculateDistance(startVertex, endVertex),
-                        Lanes = 2,
-                        MaxSpeed = 60,
-                        Type = RoadType.Urban,
-                        HasCrosswalk = false,
-                        CityId = 0,
-                        IsBidirectional = true
-                    };
+                        var startVertex = mergedNetwork.Vertices.First(v => v.Id == newStartId);
+                        var endVertex = mergedNetwork.Vertices.First(v => v.Id == newEndId);
 
-                    mergedNetwork.Edges.Add(edge);
-                    startVertex.OutgoingEdges.Add(edge.Id);
-                    endVertex.IncomingEdges.Add(edge.Id);
+                        var edge = new RoadSegment
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = $"Connection_{startVertex.Name}_{endVertex.Name}",
+                            StartVertexId = newStartId,
+                            EndVertexId = newEndId,
+                            Length = CalculateDistance(startVertex, endVertex),
+                            Lanes = 2,
+                            MaxSpeed = 60,
+                            Type = RoadType.Urban,
+                            HasCrosswalk = false,
+                            CityId = 0,
+                            IsBidirectional = true,
+                            IsBlocked = false,
+                            BlockedUntil = DateTime.MinValue,
+                            AccidentCount = 0,
+                            CongestionLevel = 0,
+                            Density = 0,
+                            FlowRate = 0,
+                            Vehicles = new List<Vehicle>()
+                        };
+
+                        mergedNetwork.Edges.Add(edge);
+                        startVertex.OutgoingEdges.Add(edge.Id);
+                        endVertex.IncomingEdges.Add(edge.Id);
+                    }
                 }
             }
 
@@ -584,27 +713,23 @@ namespace TrafficSimulation.Infrastructure.Services
             return mergedNetwork;
         }
 
-        public RoadNetwork CreateNewNetwork(string name, int city1Size = 25, int city2Size = 25)
+        public async Task<IEnumerable<RoadNetwork>> GetAllNetworksAsync()
         {
-            var network = new RoadNetwork(name)
+            return await _repository.GetAllAsync();
+        }
+
+        public async Task<bool> DeleteNetworkAsync(Guid networkId)
+        {
+            try
             {
-                Description = $"Two cities network with {city1Size} and {city2Size} vertices"
-            };
-
-            // Создаем первый город
-            var city1OffsetX = 0;
-            var city1OffsetY = 0;
-            CreateGridCity(network, 1, city1Size, city1OffsetX, city1OffsetY, 5, 5);
-
-            // Создаем второй город
-            var city2OffsetX = 2000;
-            var city2OffsetY = 0;
-            CreateGridCity(network, 2, city2Size, city2OffsetX, city2OffsetY, 5, 5);
-
-            // Создаем скоростные дороги между городами
-            CreateHighwayConnections(network);
-
-            return network;
+                await _repository.DeleteAsync(networkId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка удаления сети {networkId}: {ex.Message}");
+                return false;
+            }
         }
 
         #region Private Helper Methods
@@ -612,143 +737,6 @@ namespace TrafficSimulation.Infrastructure.Services
         private double CalculateDistance(Vertex v1, Vertex v2)
         {
             return Math.Sqrt(Math.Pow(v2.X - v1.X, 2) + Math.Pow(v2.Y - v1.Y, 2));
-        }
-
-        private RoadSegment CreateGridEdge(Vertex from, Vertex to, int cellSize)
-        {
-            var length = CalculateDistance(from, to);
-
-            return new RoadSegment
-            {
-                Id = Guid.NewGuid(),
-                Name = $"E{from.Name}-{to.Name}",
-                StartVertexId = from.Id,
-                EndVertexId = to.Id,
-                Length = length,
-                Lanes = _random.Next(1, 4),
-                MaxSpeed = new[] { 40, 50, 60, 70 }[_random.Next(4)],
-                Type = RoadType.Urban,
-                HasCrosswalk = _random.NextDouble() < 0.3,
-                CityId = from.CityId,
-                IsBidirectional = true
-            };
-        }
-
-        private void CreateGridCity(RoadNetwork network, int cityId, int size, int offsetX, int offsetY, int gridCols, int gridRows)
-        {
-            var vertices = new List<Vertex>();
-            var cellSize = 200;
-
-            // Создаем вершины сетки
-            for (int row = 0; row < gridRows; row++)
-            {
-                for (int col = 0; col < gridCols; col++)
-                {
-                    var vertex = new Vertex
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = $"City{cityId}_V{row}_{col}",
-                        X = offsetX + col * cellSize,
-                        Y = offsetY + row * cellSize,
-                        Type = VertexType.Intersection,
-                        HasTrafficLights = _random.NextDouble() < 0.7,
-                        CityId = cityId,
-                        TrafficLightPhase = 0
-                    };
-
-                    vertices.Add(vertex);
-                    network.Vertices.Add(vertex);
-                }
-            }
-
-            // Горизонтальные связи
-            for (int row = 0; row < gridRows; row++)
-            {
-                for (int col = 0; col < gridCols - 1; col++)
-                {
-                    var from = vertices[row * gridCols + col];
-                    var to = vertices[row * gridCols + col + 1];
-
-                    CreateCityRoad(network, from, to);
-                    CreateCityRoad(network, to, from); // Обратное направление
-                }
-            }
-
-            // Вертикальные связи
-            for (int col = 0; col < gridCols; col++)
-            {
-                for (int row = 0; row < gridRows - 1; row++)
-                {
-                    var from = vertices[row * gridCols + col];
-                    var to = vertices[(row + 1) * gridCols + col];
-
-                    CreateCityRoad(network, from, to);
-                    CreateCityRoad(network, to, from); // Обратное направление
-                }
-            }
-        }
-
-        private void CreateCityRoad(RoadNetwork network, Vertex from, Vertex to)
-        {
-            var road = new RoadSegment
-            {
-                Id = Guid.NewGuid(),
-                Name = $"City{from.CityId}_E{from.Name}-{to.Name}",
-                StartVertexId = from.Id,
-                EndVertexId = to.Id,
-                Length = CalculateDistance(from, to),
-                Lanes = new[] { 1, 2 }[_random.Next(2)],
-                MaxSpeed = new[] { 40, 50, 60 }[_random.Next(3)],
-                Type = RoadType.Urban,
-                HasCrosswalk = _random.NextDouble() < 0.4,
-                CityId = from.CityId,
-                IsBidirectional = true
-            };
-
-            network.Edges.Add(road);
-            from.OutgoingEdges.Add(road.Id);
-            to.IncomingEdges.Add(road.Id);
-        }
-
-        private void CreateHighwayConnections(RoadNetwork network)
-        {
-            var city1Vertices = network.Vertices.Where(v => v.CityId == 1).ToList();
-            var city2Vertices = network.Vertices.Where(v => v.CityId == 2).ToList();
-
-            if (!city1Vertices.Any() || !city2Vertices.Any())
-                return;
-
-            // Находим ближайшие вершины для соединения
-            var city1Edge = city1Vertices.OrderBy(v => v.X).LastOrDefault();
-            var city2Edge = city2Vertices.OrderBy(v => v.X).FirstOrDefault();
-
-            if (city1Edge != null && city2Edge != null)
-            {
-                CreateHighwayRoad(network, city1Edge, city2Edge);
-                CreateHighwayRoad(network, city2Edge, city1Edge);
-            }
-        }
-
-        private void CreateHighwayRoad(RoadNetwork network, Vertex from, Vertex to)
-        {
-            var road = new RoadSegment
-            {
-                Id = Guid.NewGuid(),
-                Name = $"Highway_{from.Name}-{to.Name}",
-                StartVertexId = from.Id,
-                EndVertexId = to.Id,
-                Length = CalculateDistance(from, to),
-                Lanes = 2,
-                MaxSpeed = 90,
-                Type = RoadType.Highway,
-                HasCrosswalk = false,
-                CityId = 0,
-                IsBidirectional = true
-            };
-
-            network.Edges.Add(road);
-            from.OutgoingEdges.Add(road.Id);
-            to.IncomingEdges.Add(road.Id);
         }
 
         private Dictionary<Guid, Point> CalculateCircularLayout(RoadNetwork network)
@@ -901,6 +889,30 @@ namespace TrafficSimulation.Infrastructure.Services
             }
 
             return layout;
+        }
+
+        // Реализация интерфейсного метода с меньшим количеством параметров
+        public Task<RoadSegment> AddEdgeAsync(
+            Guid networkId,
+            Guid startVertexId,
+            Guid endVertexId,
+            RoadType type = RoadType.Urban,
+            double length = 0,
+            int lanes = 1,
+            double maxSpeed = 50)
+        {
+            // Вызываем полную версию с параметрами по умолчанию
+            return AddEdgeAsync(
+                networkId,
+                startVertexId,
+                endVertexId,
+                type,
+                length,
+                lanes,
+                maxSpeed,
+                false,  // hasCrosswalk по умолчанию
+                true    // isBidirectional по умолчанию
+            );
         }
 
         #endregion
